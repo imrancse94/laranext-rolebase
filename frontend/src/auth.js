@@ -1,9 +1,9 @@
 
 import NextAuth, {CredentialsSignin,CallbackRouteError} from "next-auth";
 import Credentials from "next-auth/providers/credentials"
-import Api from "./actions";
+import Api from "./app/actions";
 import { authConfig } from "./auth.config";
-import api from "./actions";
+import api from "./app/actions";
 
 export const {
     handlers: { GET, POST },
@@ -52,7 +52,7 @@ export const {
             if (account && user) {
                 return {
                     ...user?.data,
-                    accessTokenExpires: Date.now() + user?.data?.expires_in * 1,
+                    accessTokenExpires: Date.now() + user?.data?.expires_in * 1000,
                     user:user?.data?.user
                 };
             }
@@ -77,7 +77,7 @@ export const {
 
             session.user = token?.user;
             session.accessToken = token?.access_token;
-            // session.refreshToken = token?.refresh_token;
+            session.refreshToken = token?.refresh_token;
             // session.expires = token?.expires_in;
             session.error = token?.error
   

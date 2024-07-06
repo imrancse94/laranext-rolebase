@@ -16,7 +16,7 @@ export default auth((req) => {
   const isPublicRoute = (PUBLIC_ROUTES.find(route => nextUrl.pathname.startsWith(route))
     || nextUrl.pathname === ROOT);
 
-  console.log({ isPublicRoute });
+  // console.log({ isPublicRoute });
 
   if (isAuthenticated) {
     if(isPublicRoute){

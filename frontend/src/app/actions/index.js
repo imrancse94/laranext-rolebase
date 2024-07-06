@@ -5,6 +5,10 @@
 //         ...options.headers
 //     };
 
+import { auth } from "@/auth";
+import { useSession } from "next-auth/react"
+import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
+
 //     // Update options with default headers
 //     const updatedOptions = {
 //         ...options,
@@ -29,9 +33,11 @@ class Api {
     }
 
     async request(endpoint, options = {}) {
+        const session = await auth();
         const url = `${this.baseURL}${endpoint}`;
         const defaultHeaders = {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${session?.accessToken}`,
             ...options.headers
         };
 
@@ -41,14 +47,7 @@ class Api {
         };
 
         const response = await fetch(url, updatedOptions);
-        const final_response = await response.json()
-
-        if (!response.ok) {
-            //const errorText = await response.text();
-            throw new Error(response.error);
-        }
-
-        return final_response;
+        return  await response.json()
     }
 
     async get(endpoint, headers = {}) {
@@ -87,6 +86,4 @@ class Api {
 const api = new Api('http://localhost:8000/api/v1/');
 
 export default api;
-// api.post('/data', { key: 'value' })
-//     .then(data => console.log(data))
-//     .catch(error => console.error('Error:', error));
+

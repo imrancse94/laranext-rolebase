@@ -27,6 +27,7 @@ class JwtGuard implements Guard
     {
         return $this->validate($credentials);
     }
+
     public function check()
     {
         return !is_null($this->user());
@@ -73,7 +74,7 @@ class JwtGuard implements Guard
 
     public function regenerateAuth($user): ?array
     {
-        if(!empty($user)) {
+        if (!empty($user)) {
             $this->setUser($user);
             return [
                 'access_token' => $this->access_token,
@@ -94,9 +95,14 @@ class JwtGuard implements Guard
 
     public function setUser($user): JwtGuard|static
     {
+        if (!empty($user)) {
+            $user = $user->toArray();
+        }
+
         $this->user = $user;
-        $this->access_token = JwtManager::generateAccessToken($user);
-        $this->refresh_token = JwtManager::generateRefreshToken($user);
+
+        $this->access_token = JwtManager::generateAccessToken(['user' => $user, 'token_type' => 'access_token']);
+        $this->refresh_token = JwtManager::generateRefreshToken(['user' => $user, 'token_type' => 'refresh_token']);
         return $this;
     }
 

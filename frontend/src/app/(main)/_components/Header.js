@@ -4,7 +4,7 @@ import RouteLink from "@/components/RouteLink";
 import React from "react"
 import { useState } from 'react'
 import { useRouter } from "next/navigation";
-import { logout } from "@/actions/auth";
+import { logout } from "@/app/actions/auth";
 import { LOGIN } from "@/libs/routes";
 
 export default function Header() {
@@ -25,8 +25,9 @@ export default function Header() {
         setIsToggleNotification(!isToggleNotification)
     }
 
-    const handleLogout = () => {
-        
+    const handleLogout = async () => {
+        await logout();
+        router.push(LOGIN);
     }
 
     return (
@@ -63,10 +64,7 @@ export default function Header() {
                                 /> */}
                             <RouteLink
                                 to={'#'}
-                                onClick={async () => {
-                                    await logout();
-                                    router.push(LOGIN);
-                                  }}
+                                onClick={handleLogout}
                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
                             >
                                 {'Logout'}

@@ -4,10 +4,6 @@ namespace App\Libs\Jwt;
 
 use App\Utils\ApiHttpCode;
 use App\Utils\ApiStatusCode;
-use Firebase\JWT\ExpiredException;
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
-
 use Exception;
 
 class JwtManager
@@ -23,7 +19,7 @@ class JwtManager
      * @param array $payload Payload data to be encoded in the token.
      * @return string JWT token.
      */
-    public static function generateAccessToken(array $payload)
+    public static function generateAccessToken($payload)
     {
         $issuedAt = time();
         $expirationTime = $issuedAt + self::$expirationTime;
@@ -47,7 +43,7 @@ class JwtManager
      * @param array $payload Payload data to be encoded in the token.
      * @return string Refresh token.
      */
-    public static function generateRefreshToken(array $payload)
+    public static function generateRefreshToken($payload)
     {
         $issuedAt = time();
         $expirationTime = $issuedAt + self::$refreshExpirationTime;
@@ -100,7 +96,8 @@ class JwtManager
     {
         $payload = self::decodeToken($token);
 
-        if($payload->token_type != $type){
+        if($payload['token_type'] != $type){
+            //dd($payload,$type);
             throw new Exception('Invalid token');
         }
 
@@ -108,7 +105,7 @@ class JwtManager
             throw new Exception('Token Expired');
         }
 
-        return $payload->user->id;
+        return $payload['user']['id'];
     }
     public static function isTokenExpired($payload)
     {

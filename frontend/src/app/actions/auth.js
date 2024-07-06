@@ -2,7 +2,7 @@
 
 import { signIn, signOut } from "@/auth"
 import { AuthError } from "next-auth";
-import api from ".";
+import api from "./index";
 
 export async function login(params) {
 
@@ -32,15 +32,10 @@ export async function logout() {
 export async function register(params) {
     try {
 
-        const response = await api.post('register', params);
-        
-        if (response.status_code != 100) {
-            throw new Error(response.message);
-        }
-        
-        return response;
+        return await api.post('register', params);
 
     } catch (error) {
-        throw new Error(error.message);
+         // console.log('error',error)
+        throw error;
     }
 }

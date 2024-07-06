@@ -8,7 +8,7 @@ import RouteLink from "@/components/RouteLink";
 import { useForm } from "react-hook-form"
 import registerSchema from "@/validation/register";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { register } from "@/actions/auth";
+import { register } from "@/app/actions/auth";
 import Alert from "@/components/Alert";
 import { useRouter } from "next/navigation";
 
@@ -40,11 +40,16 @@ export default function RegisterForm() {
             setError("");
             const response = await register(params);
 
-            if(response.status_code == 100){
+            if(response?.status_code === 100){
                 setMessage(response.message);
+            }else{
+                if(response?.errors?.email){
+                    setError(response?.errors?.email)
+                }
             }
             
         } catch (error) {
+
             setError(error.message)
         }
 
@@ -89,6 +94,7 @@ export default function RegisterForm() {
             </div>
             
             <Button
+                loading={isSubmitting}
                 type="submit"
                 label="Sign in"
             />

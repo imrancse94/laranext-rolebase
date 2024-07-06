@@ -18,13 +18,23 @@ class ApiAuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $response = JwtManager::verifyToken($request->bearerToken(),auth()->check());
 
-        if($response['status_code'] == ApiStatusCode::SUCCESS) {
+        $message = "";
+        try{
+            $token = $request->bearerToken();
+
+            if(empty($token)){
+                throw new \Exception('Missing token');
+            }
+
+            JwtManager::validateToken('access_token', $token);
             return $next($request);
+        }catch (\Exception $ex){
+            $message = $ex->getMessage();
         }
 
-        return sendErrorResponse($response['status_code'], $response['message'],[],$response['http_code']);
+
+        return sendErrorResponse(101, $message,[],401);
 
     }
 }

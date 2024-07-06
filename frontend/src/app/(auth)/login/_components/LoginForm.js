@@ -8,7 +8,7 @@ import RouteLink from "@/components/RouteLink";
 import { useForm } from "react-hook-form"
 import loginSchema from "@/validation/login";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { login } from "@/actions/auth";
+import { login } from "@/app/actions/auth";
 import Alert from "@/components/Alert";
 import { useRouter } from "next/navigation";
 
@@ -68,6 +68,7 @@ export default function LoginForm() {
             </div>
             
             <Button
+                loading={isSubmitting}
                 type="submit"
                 label="Sign in"
             />

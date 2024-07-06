@@ -39,6 +39,6 @@ class BaseRequest extends FormRequest
             $result[$key] = current($error);
         }
 
-        throw new HttpResponseException(sendErrorResponse(ApiStatusCode::VALIDATION_ERROR, __('Failed'), $result, ApiHttpCode::validationError));
+        throw new HttpResponseException(sendErrorResponse(ApiStatusCode::VALIDATION_ERROR, __('Validation Error'), $result, ApiHttpCode::validationError));
     }
 }
