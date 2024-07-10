@@ -21,7 +21,8 @@ class LoginController extends Controller
         $user = auth()->attempt($credentials);
 
         if (!empty($user)) {
-            return sendResponse(ApiStatusCode::SUCCESS, __('Login success'), $user);
+            $response = array_merge($user, ['user'=>auth()->user()]);
+            return sendResponse(ApiStatusCode::SUCCESS, __('Login success'), $response);
         }
 
         return sendResponse(ApiStatusCode::FAILED, __('User not found'), []);
@@ -53,6 +54,8 @@ class LoginController extends Controller
 
     public function getAuthenticatedUser()
     {
+
+        dd(auth()->user());
         //auth()->logout();
         return sendResponse(ApiStatusCode::SUCCESS, __('Fetched successfully.'), auth()->user());
     }
@@ -60,7 +63,7 @@ class LoginController extends Controller
     public function register(RegisterRequest $request)
     {
         $inputData = $request->all();
-
+        dd($inputData);
         $user = (new User())->createUser($inputData);
 
         if (!empty($user)) {
