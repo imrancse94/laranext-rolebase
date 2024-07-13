@@ -52,7 +52,7 @@ export const {
             if (account && user) {
                 return {
                     ...user?.data,
-                    accessTokenExpires: Date.now() + user?.data?.expires_in * 1000,
+                    accessTokenExpires: Date.now() + user?.data?.expire_in * 1000,
                     user:user?.data?.user
                 };
             }
@@ -99,7 +99,7 @@ async function refreshAccessToken(token) {
             return {
               ...token,
               accessToken: refreshedTokens?.data?.access_token,
-              accessTokenExpires: Date.now() + refreshedTokens?.data?.expires_in * 1,
+              accessTokenExpires: Date.now() + refreshedTokens?.data?.expire_in * 1,
               refreshToken: refreshedTokens?.data?.refresh_token,
             }
     } catch (error) {
