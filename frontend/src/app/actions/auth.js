@@ -11,11 +11,13 @@ export async function login(params) {
             ...params,
             redirect: false
         })
-
+        
         return response;
     } catch (error) {
+
         if (error instanceof AuthError) {
             const { cause } = error;
+            console.log('error',cause)
             throw new Error(cause?.err?.message);
         }
 

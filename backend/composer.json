@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "imrancse94/jwt": "^1.0",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9"
     },
@@ -26,8 +27,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/",
-            "Imrancse94\\Jwt\\": "jwt/src/"
+            "Tests\\": "tests/"
         },
         "files": ["app/Utils/helpers.php"]
     },

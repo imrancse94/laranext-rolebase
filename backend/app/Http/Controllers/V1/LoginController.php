@@ -30,23 +30,13 @@ class LoginController extends Controller
 
     public function refreshToken(Request $request)
     {
-        $refresh_token = $request->refresh_token;
-
-        if(empty($refresh_token)){
-            return sendErrorResponse(ApiStatusCode::TOKEN_EXPIRED, __('Refresh Token Expired'), [],ApiHttpCode::notAcceptable);
-        }
-
         try{
-
-            $user_id = JwtManager::validateToken('refresh_token',$refresh_token);
-
-            $user_from_db = User::find($user_id);
-            $user = auth()->regenerateAuth($user_from_db);
-            if ($user) {
+            info('Refresh token: '.$request->refresh_token);
+            if ($user = auth()->refreshToken()) {
                 return sendResponse(ApiStatusCode::SUCCESS, __('Token Refresh success'), $user);
             }
         }catch (\Exception $exception){
-
+            return sendResponse(ApiStatusCode::FAILED, __($exception->getMessage()), []);
         }
 
         return sendResponse(ApiStatusCode::FAILED, __('Refresh Token failed'), []);
@@ -54,8 +44,6 @@ class LoginController extends Controller
 
     public function getAuthenticatedUser()
     {
-
-        dd(auth()->user());
         //auth()->logout();
         return sendResponse(ApiStatusCode::SUCCESS, __('Fetched successfully.'), auth()->user());
     }

@@ -16,8 +16,8 @@ export default function LoginForm() {
     const router = useRouter();
     const [error,setError] = useState("")
     const defaultValues = useMemo(() => ({
-        email: '',
-        password: ''
+        email: 'rakib34@gmail.com',
+        password: 'Nop@ss1234'
       }), [])
     
       const methods = useForm({
