@@ -63,7 +63,7 @@ class Api {
 // Usage example
 
 
-const api = new Api('http://localhost:8000/api/v1/');
+const api = new Api('http://localhost:8080/api/v1/');
 
 export default api;
 

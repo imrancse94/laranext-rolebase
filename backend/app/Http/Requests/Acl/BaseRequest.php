@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Acl;
 
 use App\Utils\ApiHttpCode;
 use App\Utils\ApiStatusCode;
@@ -24,6 +24,13 @@ class BaseRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+    public function rules(): array
+    {
+        return [
+            //
+        ];
+    }
+
     protected function passedValidation(): void
     {
         $request = $this->all();
@@ -38,12 +45,6 @@ class BaseRequest extends FormRequest
         }
 
         $this->replace($final_data);
-    }
-    public function rules(): array
-    {
-        return [
-            //
-        ];
     }
 
     protected function failedValidation(Validator $validator)

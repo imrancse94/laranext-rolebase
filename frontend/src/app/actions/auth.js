@@ -5,8 +5,9 @@ import { AuthError } from "next-auth";
 import api from "./index";
 
 export async function login(params) {
-
+    console.log("In login")
     try {
+        
         const response = await signIn("credentials", {
             ...params,
             redirect: false

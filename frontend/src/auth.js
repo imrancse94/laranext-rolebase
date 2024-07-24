@@ -51,11 +51,11 @@ export const {
                 password: {},
             },
             authorize: async (credentials) => {
-
+                
                 if (credentials == null) return null;
 
                 try {
-
+                    
                     const response = await api.post('login', {
                         email: credentials.email,
                         password: credentials.password
@@ -64,7 +64,7 @@ export const {
                     if (response.status_code != 100) {
                         throw new Error(response.message);
                     }
-                    console.log("In authorize")
+                    
                     return response;
                 } catch (error) {
                     throw new Error(error.message);
@@ -97,13 +97,12 @@ export const {
 
             if (Date.now() < token?.accessTokenExpires) {
                 console.log(`At ${new Date(Date.now())}, Using old access token`);
-                return Promise.resolve(token);
+                return token;
             }
 
 
             //console.log(`Token Expired at ${new Date(Date.now())}`)
-            const newToken = await refreshAccessToken(token);
-            return Promise.resolve(newToken);
+            return await refreshAccessToken(token)
 
         },
         async session({session, token}) {
@@ -119,7 +118,7 @@ export const {
             session.accessTokenExpires = token?.accessTokenExpires;
             session.error = token?.error
 
-            return Promise.resolve(session);
+            return session;
         },
 
     }

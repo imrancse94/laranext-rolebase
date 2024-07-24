@@ -1,0 +1,7 @@
+<?php
+
+return [
+    'JWT_SECRET'=>env('JWT_SECRET',''),
+    'JWT_ACCESS_TOKEN_EXPIRY'=>env('JWT_ACCESS_TOKEN_EXPIRY',''),
+    'JWT_REFRESH_TOKEN_EXPIRY'=>env('JWT_REFRESH_TOKEN_EXPIRY',''),
+];
