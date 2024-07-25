@@ -32,7 +32,11 @@ class AclPermission extends Model
 
     public function updatebyId($id, $inputData)
     {
-        return self::where('id', $id)->update([
+        $permission = self::where('id', $id)->first();
+        if(empty($permission)){
+            return "not_found";
+        }
+        return $permission->update([
             'title' => $inputData['title'],
             'key' => $inputData['key']
         ]);
@@ -40,12 +44,22 @@ class AclPermission extends Model
 
     public function deleteById($id)
     {
-        return self::destroy($id);
+        $permission = self::where('id', $id)->first();
+        if(empty($permission)){
+            return "not_found";
+        }
+
+        return $permission->delete();
     }
 
     public function getById($id)
     {
         return self::findOrFail($id);
+    }
+
+    public function getAll($callback)
+    {
+        return $callback(self::query());
     }
 
     public function getPermissionByUserId($user_id)

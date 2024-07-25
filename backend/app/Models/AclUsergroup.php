@@ -32,6 +32,11 @@ class AclUsergroup extends Model
 
     public function getById($id)
     {
-        return self::findOrFail($id);
+        return self::find($id);
+    }
+
+    public function getAll($callback)
+    {
+        return $callback(self::query());
     }
 }

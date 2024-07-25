@@ -14,8 +14,8 @@ class PermissionRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|unique:acl_permissions,title',
-            'key' => 'required|unique:acl_permissions,key',
+            'title' => ['required',Rule::unique('acl_permissions')->ignore($this->id)],
+            'key' => ['required',Rule::unique('acl_permissions')->ignore($this->id)],
         ];
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Acl;
 
+use Illuminate\Validation\Rule;
+
 class UsergroupRequest extends BaseRequest
 {
     /**
@@ -12,7 +14,7 @@ class UsergroupRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:acl_usergroups,name',
+            'name' => ['required',Rule::unique('acl_usergroups')->ignore($this->id)],
         ];
     }
 }

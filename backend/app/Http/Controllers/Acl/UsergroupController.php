@@ -12,7 +12,7 @@ class UsergroupController extends Controller
 {
     public function getList(): \Illuminate\Http\JsonResponse
     {
-        $roles = (new AclUsergroup())->getAll(function ($query) {
+        $usergroups = (new AclUsergroup())->getAll(function ($query) {
             return $query->paginate(10);
         });
 
@@ -20,9 +20,9 @@ class UsergroupController extends Controller
         $data = [];
         $message = __('Not found');
 
-        if (!empty($roles->data)) {
+        if (count($usergroups) > 0) {
             $status_code = ApiStatusCode::SUCCESS;
-            $data = $roles;
+            $data = $usergroups;
             $message = __('Success');
         }
 
@@ -38,10 +38,10 @@ class UsergroupController extends Controller
 
         $inputData = $request->all();
 
-        $role = (new AclUsergroup)->add($inputData);
+        $usergroup = (new AclUsergroup)->add($inputData);
 
-        if(!empty($role)){
-            $data = $role;
+        if(!empty($usergroup)){
+            $data = $usergroup;
             $status_code = ApiStatusCode::SUCCESS;
             $message = __('Success');
         }
@@ -57,9 +57,9 @@ class UsergroupController extends Controller
 
         $inputData = $request->all();
 
-        $role = (new AclUsergroup())->updatebyId($id, $inputData);
+        $usergroup = (new AclUsergroup())->updatebyId($id, $inputData);
 
-        if(!empty($role)){
+        if(!empty($usergroup)){
             $data = $inputData;
             $status_code = ApiStatusCode::SUCCESS;
             $message = __('Success');
@@ -74,9 +74,9 @@ class UsergroupController extends Controller
         $data = [];
         $message = __('Failed');
 
-        $role = (new AclUsergroup())->deletebyId($id);
+        $usergroup = (new AclUsergroup())->deletebyId($id);
 
-        if(!empty($role)){
+        if(!empty($usergroup)){
             $status_code = ApiStatusCode::SUCCESS;
             $message = __('Success');
         }
@@ -90,12 +90,12 @@ class UsergroupController extends Controller
         $message = __('Failed');
         $data = [];
 
-        $role = (new AclUsergroup())->getbyId($id);
+        $usergroup = (new AclUsergroup())->getbyId($id);
 
-        if(!empty($role)){
+        if(!empty($usergroup)){
             $status_code = ApiStatusCode::SUCCESS;
             $message = __('Success');
-            $data = $role;
+            $data = $usergroup;
         }
 
         return sendResponse($status_code, $message, $data);

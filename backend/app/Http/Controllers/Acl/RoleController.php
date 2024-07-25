@@ -21,7 +21,7 @@ class RoleController extends Controller
         $data = [];
         $message = __('Not found');
 
-        if (!empty($roles)) {
+        if (count($roles) > 0) {
             $status_code = ApiStatusCode::SUCCESS;
             $data = $roles;
             $message = __('Success');

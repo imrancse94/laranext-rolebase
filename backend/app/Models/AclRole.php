@@ -32,7 +32,7 @@ class AclRole extends Model
 
     public function getById($id)
     {
-        return self::findOrFail($id);
+        return self::find($id);
     }
 
     public function getAll($callback)

@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Acl;
 
+use Illuminate\Validation\Rule;
+
 class RoleRequest extends BaseRequest
 {
     /**
@@ -12,7 +14,7 @@ class RoleRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:acl_roles,name',
+            'name' => ['required',Rule::unique('acl_roles')->ignore($this->id)]
         ];
     }
 }

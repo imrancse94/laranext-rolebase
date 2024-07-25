@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Acl\PermissionController;
 use App\Http\Controllers\Acl\RoleController;
 use App\Http\Controllers\Acl\UsergroupController;
 use App\Http\Controllers\V1\LoginController;
@@ -29,9 +30,9 @@ Route::prefix('v1')->group(function () {
             ->group(function () {
                 Route::get('', 'getList')->name('list');
                 Route::post('create', 'create')->name('create');
-                Route::put('{id}', 'update')->name('update');
+                Route::put('update/{id}', 'update')->name('update');
                 Route::delete('{id}', 'delete')->name('delete');
-                Route::get('{id}', 'getById')->name('single');
+                Route::get('{id}', 'show')->name('get');
             });
 
         // Usergroup
@@ -41,9 +42,21 @@ Route::prefix('v1')->group(function () {
             ->group(function () {
                 Route::get('', 'getList')->name('list');
                 Route::post('create', 'create')->name('create');
-                Route::put('{id}', 'update')->name('update');
+                Route::put('update/{id}', 'update')->name('update');
                 Route::delete('{id}', 'delete')->name('delete');
-                Route::get('{id}', 'getById')->name('single');
+                Route::get('{id}', 'show')->name('get');
+            });
+
+        // Permission
+        Route::controller(PermissionController::class)
+            ->prefix('permissions')
+            ->name('permissions.')
+            ->group(function () {
+                Route::get('', 'getList')->name('list');
+                Route::post('create', 'create')->name('create');
+                Route::put('update/{id}', 'update')->name('update');
+                Route::delete('{id}', 'delete')->name('delete');
+                Route::get('{id}', 'show')->name('get');
             });
 
 
