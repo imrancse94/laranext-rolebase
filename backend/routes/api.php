@@ -3,6 +3,7 @@
 use App\Http\Controllers\Acl\PermissionController;
 use App\Http\Controllers\Acl\RoleController;
 use App\Http\Controllers\Acl\UsergroupController;
+use App\Http\Controllers\Acl\UsergroupRoleAssocController;
 use App\Http\Controllers\V1\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -59,7 +60,17 @@ Route::prefix('v1')->group(function () {
                 Route::get('{id}', 'show')->name('get');
             });
 
-
+        // Usergroup & Role Association
+        Route::controller(UsergroupRoleAssocController::class)
+            ->prefix('usergroup-role-assoc')
+            ->name('usergroup.role.assoc.')
+            ->group(function () {
+                Route::get('{usergroup_id}', 'index')->name('index');
+                Route::post('assign/role', 'assignRole')->name('assign.role');
+                Route::put('update/{id}', 'update')->name('update');
+                Route::delete('{id}', 'delete')->name('delete');
+                Route::get('{id}', 'show')->name('get');
+            });
     });
     // ACL
 });

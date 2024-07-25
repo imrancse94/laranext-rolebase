@@ -12,8 +12,10 @@ class UsergroupController extends Controller
 {
     public function getList(): \Illuminate\Http\JsonResponse
     {
-        $usergroups = (new AclUsergroup())->getAll(function ($query) {
-            return $query->paginate(10);
+        $paginate = request()->query('page') ?? false ;
+
+        $usergroups = (new AclUsergroup())->getAll(function ($query) use ($paginate) {
+            return $paginate ? $query->paginate(10) : $query->get();
         });
 
         $status_code = ApiStatusCode::NOT_FOUND;
