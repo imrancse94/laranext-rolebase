@@ -12,7 +12,25 @@ use Illuminate\Http\Request;
 
 class UsergroupRoleAssocController extends Controller
 {
-    public function index($usergroup_id)
+
+    public function index()
+    {
+        $usergroups = (new AclUsergroup())->getAll(function ($q){
+            return $q->pluck('name', 'id');
+        });
+
+        $jsonArray = [];
+        foreach ($usergroups as $id => $name) {
+            $jsonArray[] = ['id' => $id, 'name' => $name];
+        }
+
+        $status_code = ApiStatusCode::SUCCESS;
+        $data['usergroups'] = $jsonArray;
+        $message = __('Success');
+
+        return sendResponse($status_code, $message, $data);
+    }
+    public function getInfoByUserGroupId($usergroup_id)
     {
         $usergroup = (new AclUsergroup())->getById($usergroup_id);
 
@@ -40,6 +58,17 @@ class UsergroupRoleAssocController extends Controller
 
     public function assignRole(AssignUsergroupRoleRequest $request)
     {
+        $status_code = ApiStatusCode::FAILED;
+        $message = __('Failed');
+        $inputData = $request->all();
 
+        $assigned = (new AclUsergroupRole())->assignRole($inputData['usergroup_id'], $inputData['role_ids']);
+
+        if($assigned){
+            $status_code = ApiStatusCode::SUCCESS;
+            $message = __('Success');
+        }
+
+        return sendResponse($status_code, $message, []);
     }
 }

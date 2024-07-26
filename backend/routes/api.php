@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Acl\PermissionController;
 use App\Http\Controllers\Acl\RoleController;
+use App\Http\Controllers\Acl\RolePermissionAssocController;
 use App\Http\Controllers\Acl\UsergroupController;
 use App\Http\Controllers\Acl\UsergroupRoleAssocController;
 use App\Http\Controllers\V1\LoginController;
@@ -65,11 +66,19 @@ Route::prefix('v1')->group(function () {
             ->prefix('usergroup-role-assoc')
             ->name('usergroup.role.assoc.')
             ->group(function () {
-                Route::get('{usergroup_id}', 'index')->name('index');
+                Route::get('', 'index')->name('index');
+                Route::get('{usergroup_id}', 'getInfoByUserGroupId')->name('get.info');
                 Route::post('assign/role', 'assignRole')->name('assign.role');
-                Route::put('update/{id}', 'update')->name('update');
-                Route::delete('{id}', 'delete')->name('delete');
-                Route::get('{id}', 'show')->name('get');
+            });
+
+        // Usergroup & Role Association
+        Route::controller(RolePermissionAssocController::class)
+            ->prefix('role-permission')
+            ->name('role.permission.')
+            ->group(function () {
+                Route::get('', 'index')->name('index');
+                Route::get('{role_id}', 'getInfoByRoleId')->name('get.info');
+                Route::post('assign/role', 'assignRole')->name('assign.role');
             });
     });
     // ACL
