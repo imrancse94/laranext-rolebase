@@ -8,4 +8,5 @@ export const PUBLIC_ROUTES = [
 
 export const PROTECTED_SUB_ROUTES = [
     '/dashboard',
+    '/acl/*'
 ]

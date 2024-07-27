@@ -4,10 +4,7 @@ import axios from "axios";
 import {getUser} from "@/app/actions/user";
 
 export default async function Dashboard() {
-    // const response = await getUser();
-    // console.log('response',response)
     const session = await auth()
-    console.log('session dashboard',session)
 
     return (
         <>

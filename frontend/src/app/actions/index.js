@@ -5,11 +5,16 @@ class Api {
     }
 
     async request(endpoint, options = {}) {
+        const session = await auth()
         const url = `${this.baseURL}${endpoint}`;
         const defaultHeaders = {
             'Content-Type': 'application/json',
             ...options.headers
         };
+
+        if(session?.access_token){
+            defaultHeaders['Authorization'] = `Bearer ${session.access_token}`
+        }
 
         const updatedOptions = {
             ...options,
@@ -22,14 +27,9 @@ class Api {
         //return fetch(url, updatedOptions);
     }
 
-    async get(endpoint, headers = {}) {
-        const session = await auth()
-        console.log('get')
-        headers = {
-            ...headers,
-            'Authorization':`Bearer ${session.access_token}`
-        }
-        return await this.request(endpoint, {
+    async get(endpoint, params, headers = {}) {
+        const queryString = new URLSearchParams(params).toString();
+        return await this.request(endpoint + `?${queryString}`, {
             method: 'GET',
             headers
         });
@@ -63,7 +63,7 @@ class Api {
 // Usage example
 
 
-const api = new Api('http://localhost:8080/api/v1/');
+const api = new Api('http://localhost:8000/api/v1/');
 
 export default api;
 

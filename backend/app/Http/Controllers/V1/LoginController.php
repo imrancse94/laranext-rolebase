@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Libs\Jwt\JwtManager;
+use App\Models\AclPermission;
 use App\Models\User;
 use App\Utils\ApiHttpCode;
 use App\Utils\ApiStatusCode;
@@ -21,7 +22,10 @@ class LoginController extends Controller
         $user = auth()->attempt($credentials);
 
         if (!empty($user)) {
-            $response = array_merge($user, ['user'=>auth()->user()]);
+            $response = array_merge($user, [
+                'user'=>auth()->user(),
+                'permission'=> (new AclPermission)->getPermissionByUserId(auth()->id())
+            ]);
             return sendResponse(ApiStatusCode::SUCCESS, __('Login success'), $response);
         }
 
@@ -33,6 +37,7 @@ class LoginController extends Controller
         try{
             info('Refresh token: '.$request->refresh_token);
             if ($user = auth()->refreshToken()) {
+                $user['permission'] = (new AclPermission)->getPermissionByUserId(auth()->id());
                 return sendResponse(ApiStatusCode::SUCCESS, __('Token Refresh success'), $user);
             }
         }catch (\Exception $exception){

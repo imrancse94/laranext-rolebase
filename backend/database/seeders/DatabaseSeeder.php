@@ -51,6 +51,10 @@ class DatabaseSeeder extends Seeder
             // create permission
             $permissions = [
                 [
+                    'title' => 'Permission list',
+                    'key' => 'permission-list'
+                ],
+                [
                     'title' => 'Create Permission',
                     'key' => 'create-permission'
                 ],
@@ -67,6 +71,10 @@ class DatabaseSeeder extends Seeder
                     'key' => 'view-permission'
                 ],
                 [
+                    'title' => 'Role list',
+                    'key' => 'role-list'
+                ],
+                [
                     'title' => 'Create Role',
                     'key' => 'create-role'
                 ],
@@ -81,6 +89,10 @@ class DatabaseSeeder extends Seeder
                 [
                     'title' => 'View Role',
                     'key' => 'view-role'
+                ],
+                [
+                    'title' => 'Usergroup list',
+                    'key' => 'usergroup-list'
                 ],
                 [
                     'title' => 'Create Usergroup',

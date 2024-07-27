@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\ModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class AclPermission extends Model
 {
-    use HasFactory;
+    use HasFactory,ModelTrait;
+
 
     protected $fillable = ['title','key'];
 
@@ -73,7 +75,10 @@ class AclPermission extends Model
             ->join('acl_usergroups','acl_usergroups.id','=','acl_usergroup_roles.acl_usergroup_id')
             ->join('acl_user_usergroups','acl_user_usergroups.acl_usergroup_id','=','acl_usergroups.id')
             ->join('users','users.id','=','acl_user_usergroups.user_id')
+            ->select(['acl_permissions.title','acl_permissions.key'])
             ->where('users.id',$user_id)
             ->get();
     }
+
+
 }

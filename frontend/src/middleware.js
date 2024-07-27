@@ -16,7 +16,6 @@ import { DEFAULT_AUTHENTICATED_REDIRECT, PUBLIC_ROUTES, LOGIN, ROOT,PROTECTED_SU
 //   const isPublicRoute = (PUBLIC_ROUTES.find(route => nextUrl.pathname.startsWith(route))
 //     || nextUrl.pathname === ROOT);
 
-//    console.log('isAuthenticated',isAuthenticated);
 
 //   if (isAuthenticated) {
 //     if(isPublicRoute){
@@ -35,20 +34,24 @@ import { DEFAULT_AUTHENTICATED_REDIRECT, PUBLIC_ROUTES, LOGIN, ROOT,PROTECTED_SU
 export default async function middleware(request) {
   
   const { nextUrl } = request;
-
   if(nextUrl.pathname === '/'){
     return Response.redirect(new URL(LOGIN, nextUrl));
   }
   
   const session = await auth();
   const isAuthenticated = !!session?.user;
-  console.log('isAuthenticated', isAuthenticated);
 
   const isPublicRoute = ((PUBLIC_ROUTES.find(route => nextUrl.pathname.startsWith(route))
   || nextUrl.pathname === ROOT) && !PROTECTED_SUB_ROUTES.find(route => nextUrl.pathname.includes(route)));
+  console.log('isAuthenticated',isAuthenticated);
+  
+  if(isAuthenticated && !isPublicRoute){
+    return NextResponse.next();
+  }
 
-  if (!isAuthenticated && !isPublicRoute)
+  if (!isAuthenticated && !isPublicRoute){
     return Response.redirect(new URL(LOGIN, nextUrl));
+  }
 }
 
 // See "Matching Paths" below to learn more

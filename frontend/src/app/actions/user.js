@@ -7,7 +7,7 @@ export async function getUser() {
         // const session = await auth()
         return await api.get('auth/user');
     }catch (e) {
-        console.log('test error',e.message);
+
     }
 
     return null;

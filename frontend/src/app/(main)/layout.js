@@ -1,5 +1,5 @@
-import Sidebar from "@/app/(main)/_components/Sidebar";
-import Header from "@/app/(main)/_components/Header";
+import Sidebar from "@/app/(main)/_components/partials/Sidebar";
+import Header from "@/app/(main)/_components/partials/Header";
 import {auth} from "@/auth";
 import {redirect} from "next/navigation";
 // import Sidebar from "@/app/(main)/_components/Sidebar";
