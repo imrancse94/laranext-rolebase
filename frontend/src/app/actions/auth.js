@@ -1,19 +1,21 @@
+"use server"
+
 import { signIn, signOut } from "@/auth"
 import { AuthError } from "next-auth";
 import api from "./index";
 
 export async function login(params) {
-
+    
     try {
         
         const response = await signIn("credentials", {
             ...params,
             redirect: false
         })
-
+        
         return response;
     } catch (error) {
-
+        console.log('sign in',error)
         if (error instanceof AuthError) {
             const { cause } = error;
             throw new Error(cause?.err?.message);

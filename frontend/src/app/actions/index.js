@@ -27,7 +27,7 @@ class Api {
         //return fetch(url, updatedOptions);
     }
 
-    async get(endpoint, params, headers = {}) {
+    async get(endpoint, params = {}, headers = {}) {
         const queryString = new URLSearchParams(params).toString();
         return await this.request(endpoint + `?${queryString}`, {
             method: 'GET',

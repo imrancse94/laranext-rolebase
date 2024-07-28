@@ -399,12 +399,219 @@ export default async function Dashboard() {
                                         <a href="#" className="text-indigo-600 hover:text-indigo-900">Edit</a>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div className="flex items-center">
+                                            <div className="flex-shrink-0 w-10 h-10">
+                                                <img className="w-10 h-10 rounded-full"
+                                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
+                                                    alt="" />
+                                            </div>
+
+                                            <div className="ml-4">
+                                                <div className="text-sm font-medium leading-5 text-gray-900">John Doe
+                                                </div>
+                                                <div className="text-sm leading-5 text-gray-500">john@example.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div className="text-sm leading-5 text-gray-900">Software Engineer</div>
+                                        <div className="text-sm leading-5 text-gray-500">Web dev</div>
+                                    </td>
+
+                                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <span
+                                            className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
+                                    </td>
+
+                                    <td
+                                        className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        Owner</td>
+
+                                    <td
+                                        className="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
+                                        <a href="#" className="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div className="flex items-center">
+                                            <div className="flex-shrink-0 w-10 h-10">
+                                                <img className="w-10 h-10 rounded-full"
+                                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
+                                                    alt="" />
+                                            </div>
+
+                                            <div className="ml-4">
+                                                <div className="text-sm font-medium leading-5 text-gray-900">John Doe
+                                                </div>
+                                                <div className="text-sm leading-5 text-gray-500">john@example.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div className="text-sm leading-5 text-gray-900">Software Engineer</div>
+                                        <div className="text-sm leading-5 text-gray-500">Web dev</div>
+                                    </td>
+
+                                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <span
+                                            className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
+                                    </td>
+
+                                    <td
+                                        className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        Owner</td>
+
+                                    <td
+                                        className="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
+                                        <a href="#" className="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div className="flex items-center">
+                                            <div className="flex-shrink-0 w-10 h-10">
+                                                <img className="w-10 h-10 rounded-full"
+                                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
+                                                    alt="" />
+                                            </div>
+
+                                            <div className="ml-4">
+                                                <div className="text-sm font-medium leading-5 text-gray-900">John Doe
+                                                </div>
+                                                <div className="text-sm leading-5 text-gray-500">john@example.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div className="text-sm leading-5 text-gray-900">Software Engineer</div>
+                                        <div className="text-sm leading-5 text-gray-500">Web dev</div>
+                                    </td>
+
+                                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <span
+                                            className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
+                                    </td>
+
+                                    <td
+                                        className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        Owner</td>
+
+                                    <td
+                                        className="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
+                                        <a href="#" className="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div className="flex items-center">
+                                            <div className="flex-shrink-0 w-10 h-10">
+                                                <img className="w-10 h-10 rounded-full"
+                                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
+                                                    alt="" />
+                                            </div>
+
+                                            <div className="ml-4">
+                                                <div className="text-sm font-medium leading-5 text-gray-900">John Doe
+                                                </div>
+                                                <div className="text-sm leading-5 text-gray-500">john@example.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div className="text-sm leading-5 text-gray-900">Software Engineer</div>
+                                        <div className="text-sm leading-5 text-gray-500">Web dev</div>
+                                    </td>
+
+                                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <span
+                                            className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
+                                    </td>
+
+                                    <td
+                                        className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        Owner</td>
+
+                                    <td
+                                        className="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
+                                        <a href="#" className="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-
+            <div className="flex justify-end">
+            <nav aria-label="Page navigation example">
+  <ul className="inline-flex -space-x-px text-sm">
+    <li>
+      <a
+        href="#"
+        className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+      >
+        Previous
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+      >
+        1
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+      >
+        2
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        aria-current="page"
+        className="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+      >
+        3
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+      >
+        4
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+      >
+        5
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+      >
+        Next
+      </a>
+    </li>
+  </ul>
+</nav>
+                 
+           </div>
         </>
     )
 }

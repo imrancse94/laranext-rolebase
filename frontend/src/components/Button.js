@@ -3,7 +3,7 @@
 import cn from "@/libs/cn"
 
 export default function Button({...props}) {
-    const {keyName,label, type, className, loading} = props
+    const {keyName,label,action, type, className, loading} = props
 
     if(keyName){
 
@@ -19,6 +19,7 @@ export default function Button({...props}) {
     return (
         <button
             type={type}
+            onClick={action}
             className={newClass}
         >
             {loading && <svg className="mr-3 h-5 w-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg"

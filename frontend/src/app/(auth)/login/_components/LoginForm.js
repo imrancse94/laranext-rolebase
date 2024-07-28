@@ -36,7 +36,7 @@ export default function LoginForm() {
         try {
             setError("");
             const response = await login(params);
-            
+            console.log("req",response)
             if(response){
                 router.push('/dashboard');
             }
