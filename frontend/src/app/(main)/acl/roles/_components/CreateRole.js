@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import FormComponent from "@/components/FormComponent";
 import { createRole } from "@/app/actions/acl/roles";
 import { revalidatePath } from 'next/cache';
-
+import toaster from "@/libs/toaster";
 
 export default function CreateRole() {
     const [isModalOpen, setModalOpen] = useState(false);
@@ -21,6 +21,7 @@ export default function CreateRole() {
 
     const createRoleResponse = (response) => {
         if(response?.status_code === 100){
+            toaster('success','Role added successfully.')
             setModalOpen(false)
             revalidatePath('/')
         }

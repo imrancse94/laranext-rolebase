@@ -6,7 +6,7 @@ export const PUBLIC_ROUTES = [
     '/register'
 ]
 
-export const PROTECTED_SUB_ROUTES = [
-    '/dashboard',
-    '/acl/*'
-]
+// export const PROTECTED_SUB_ROUTES = [
+//     '/dashboard',
+//     '/acl/*'
+// ]

@@ -35,6 +35,7 @@ export default function LoginForm() {
     const onSubmit = handleSubmit(async (params) => {
         try {
             setError("");
+            console.log("req1111")
             const response = await login(params);
             console.log("req",response)
             if(response){

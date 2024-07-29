@@ -17,7 +17,7 @@ const Modal = ({children,title,onCloseModal}) => {
 
 				<div className="shadow w-full rounded-lg bg-white overflow-hidden w-full block p-8">
 					
-					<h2 className="font-bold text-2xl mb-6 text-gray-800 border-b pb-2">{title}</h2>
+					<h2 className="font-bold text-left text-2xl mb-6 text-gray-800 border-b pb-2">{title}</h2>
 				 
 					{children}
 	

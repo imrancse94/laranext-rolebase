@@ -38,13 +38,15 @@ export default function FormComponent({ ...props }) {
         try {
             setError("");
             const response = await action(params);
-            if(response.status_code === 103){
+            if(response?.status_code === 103){
                 Object.keys(initialValues).map(i=>{
                     setError(response.errors[i])
                 })
                 
             }
-            getResponse(response)
+            if(getResponse){
+                getResponse(response)
+            }
         } catch (error) {
             setError(error.message)
         }

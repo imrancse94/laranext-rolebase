@@ -12,10 +12,10 @@ export async function login(params) {
             ...params,
             redirect: false
         })
-        
+        console.log('sign in',response)
         return response;
     } catch (error) {
-        console.log('sign in',error)
+        
         if (error instanceof AuthError) {
             const { cause } = error;
             throw new Error(cause?.err?.message);

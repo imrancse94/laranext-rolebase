@@ -5,29 +5,24 @@ import { useSearchParams,usePathname,useRouter  } from "next/navigation";
 
 const Pagination = ({ ...props }) => {
     
-    const params = useSearchParams()
+    const searchParams = useSearchParams()
     const pathname = usePathname()
     const router = useRouter();
 
     const prepareQueryStringByKeyValue = (keyValue = {}) => {
         let newPathName = "";
-        params.forEach((param,key)=>{
-            if(newPathName){
-                newPathName += `&${key}=${param}`
-            }else{
-                newPathName = `?${key}=${param}`
-            }
-        })
-
+        const params = new URLSearchParams(searchParams);
+        console.log('params',params)
+        
         Object.keys(keyValue).map(i=>{
-            if(newPathName){
-                newPathName += `&${i}=${keyValue[i]}`
-            }else{
-                newPathName = `?${i}=${keyValue[i]}`
+            if (searchParams) {
+                params.set(i, keyValue[i]);
+            } else {
+                params.delete(i);
             }
         })
 
-        return pathname+newPathName;
+         return `${pathname}?${params.toString()}`;
     }
     
 

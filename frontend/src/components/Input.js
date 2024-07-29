@@ -15,7 +15,7 @@ export default function Input({ ...props }) {
                 <>
                     {label && <label
                         htmlFor={name}
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        className="block text-left mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
                         {label}
                     </label>}

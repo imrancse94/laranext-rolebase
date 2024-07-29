@@ -4,6 +4,8 @@ import {auth} from "@/auth";
 import {redirect} from "next/navigation";
 // import Sidebar from "@/app/(main)/_components/Sidebar";
 import {SessionProvider} from 'next-auth/react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default async function AuthLayout({children}) {
     const session = await auth();
@@ -12,6 +14,7 @@ export default async function AuthLayout({children}) {
     }
     return (
         <SessionProvider>
+            <ToastContainer/>
             <div className="flex h-screen bg-gray-200">
                 <Sidebar/>
                 <div className="flex flex-col flex-1 overflow-hidden">

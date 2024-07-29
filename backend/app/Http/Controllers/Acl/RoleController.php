@@ -14,7 +14,7 @@ class RoleController extends Controller
     public function getList(): \Illuminate\Http\JsonResponse
     {
         $roles = (new AclRole())->getAll(function ($query) {
-            return $query->paginate(10);
+            return $query->orderBy('id','desc')->paginate(10);
         });
 
         $status_code = ApiStatusCode::NOT_FOUND;
