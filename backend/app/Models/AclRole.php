@@ -36,8 +36,16 @@ class AclRole extends Model
         return self::find($id);
     }
 
-    public function getAll($callback)
+    public function getAll($filter,$callback)
     {
-        return $callback(self::query());
+        $query = self::query();
+
+        if(!empty($filter['search'])){
+            $query->where(function($q) use ($filter){
+                $q->where('name','LIKE','%'.$filter['search'].'%');
+            });
+        }
+
+        return $callback($query);
     }
 }

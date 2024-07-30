@@ -28,7 +28,7 @@ export default function CreateRole() {
     }
 
     return (
-        <>
+        <div className="ml-2">
             <Button
                 type="button"
                 action={handleAction}
@@ -58,7 +58,7 @@ export default function CreateRole() {
                     </FormComponent>
                 </Modal>
             }
-        </>
+        </div>
 
     )
 }

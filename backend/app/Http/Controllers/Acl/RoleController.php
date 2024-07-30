@@ -6,14 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Acl\RoleRequest;
 use App\Models\AclRole;
 use App\Utils\ApiStatusCode;
-use Couchbase\Role;
-use Illuminate\Http\Request;
+
 
 class RoleController extends Controller
 {
     public function getList(): \Illuminate\Http\JsonResponse
     {
-        $roles = (new AclRole())->getAll(function ($query) {
+        $filter = request()->query();
+
+        $roles = (new AclRole())->getAll($filter,function ($query) {
             return $query->orderBy('id','desc')->paginate(10);
         });
 

@@ -59,9 +59,18 @@ class AclPermission extends Model
         return self::findOrFail($id);
     }
 
-    public function getAll($callback)
+    public function getAll($filter,$callback)
     {
-        return $callback(self::query());
+        $query = self::query();
+
+        if(!empty($filter['search'])){
+            $query->where(function($q) use ($filter){
+                $q->where('title','LIKE','%'.$filter['search'].'%')
+                  ->orWhere('key','LIKE','%'.$filter['search'].'%');
+            });
+        }
+
+        return $callback($query);
     }
 
     public function getPermissionByUserId($user_id)
