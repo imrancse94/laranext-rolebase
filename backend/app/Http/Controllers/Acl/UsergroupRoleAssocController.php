@@ -15,7 +15,7 @@ class UsergroupRoleAssocController extends Controller
 
     public function index()
     {
-        $usergroups = (new AclUsergroup())->getAll(function ($q){
+        $usergroups = (new AclUsergroup())->getAll([],function ($q){
             return $q->pluck('name', 'id');
         });
 
@@ -39,7 +39,7 @@ class UsergroupRoleAssocController extends Controller
             $message = __('User group not found');
             return sendResponse($status_code, $message, []);
         }
-        $roles = (new AclRole())->getAll(function ($q){
+        $roles = (new AclRole())->getAll([],function ($q){
             return $q->pluck('name', 'id');
         });
 

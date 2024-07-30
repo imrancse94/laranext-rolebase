@@ -4,24 +4,20 @@ import Button from "@/components/Button";
 import Modal from "@/components/Modal";
 import { useState } from "react";
 import Input from "@/components/Input";
-import roleSchema from "@/validation/role";
-import { useRouter } from "next/navigation";
+import usergroupSchema from "@/validation/usergroup";
 import FormComponent from "@/components/FormComponent";
-import { createRole } from "@/app/actions/acl/roles";
-import { revalidatePath } from 'next/cache';
+import { createUsergroup } from "@/app/actions/acl/usergroups";
 import toaster from "@/libs/toaster";
 
-export default function CreateRole() {
+export default function CreateUsergroup() {
     const [isModalOpen, setModalOpen] = useState(false);
-    const [error, setError] = useState("")
-    const router = useRouter();
     const handleAction = () => {
         setModalOpen(true)
     }
 
-    const createRoleResponse = (response) => {
+    const createUsergroupResponse = (response) => {
         if(response?.status_code === 100){
-            toaster('success','Role added successfully.')
+            toaster('success','Usergroup added successfully.')
             setModalOpen(false)
         }
     }
@@ -31,18 +27,18 @@ export default function CreateRole() {
             <Button
                 type="button"
                 action={handleAction}
-                label="Add Role"
-                keyName="create-role"
+                label="Add Usergroup"
+                keyName="create-usergroup"
                 className="w-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
 
             {
                 isModalOpen &&
-                <Modal title="Add Role" onCloseModal={() => setModalOpen(false)}>
+                <Modal title="Add Usergroup" onCloseModal={() => setModalOpen(false)}>
                     <FormComponent
-                         validationSchema={roleSchema}
+                         validationSchema={usergroupSchema}
                          initialValues={{name:''}}
-                         action={createRole}
-                         getResponse={createRoleResponse}
+                         action={createUsergroup}
+                         getResponse={createUsergroupResponse}
                          closeAction={() => setModalOpen(false)}
                     >
                         <div>

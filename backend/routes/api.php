@@ -42,7 +42,8 @@ Route::prefix('v1')->group(function () {
             ->prefix('usergroups')
             ->name('usergroups.')
             ->group(function () {
-                Route::get('', 'getList')->name('list');
+                Route::get('', 'getList')->name('index');
+                Route::get('all-list', 'getAllList')->name('all.list');
                 Route::post('create', 'create')->name('create');
                 Route::put('update/{id}', 'update')->name('update');
                 Route::delete('{id}', 'delete')->name('delete');

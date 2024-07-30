@@ -38,13 +38,16 @@ export default function FormComponent({ ...props }) {
         try {
             setError("");
             const response = await action(params);
-            if(response?.status_code === 103){
-                Object.keys(initialValues).map(i=>{
-                    setError(response.errors[i])
+
+            if (response?.status_code === 103) {
+                Object.keys(initialValues).map(i => {
+                    if(response?.errors[i]){
+                        setError(response.errors[i])
+                    }
                 })
-                
             }
-            if(getResponse){
+
+            if (getResponse) {
                 getResponse(response)
             }
         } catch (error) {
@@ -59,18 +62,22 @@ export default function FormComponent({ ...props }) {
                 {error && <Alert type="warning" message={error} />}
                 {children}
                 <div className="flex">
-                <Button
-                    className="mr-2 w-auto bg-green-500 text-sm hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                    loading={isSubmitting}
-                    type="submit"
-                    label="Save"
-                />
-                <Button
-                    className="w-auto bg-blue-500 text-sm hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    action={closeAction}
-                    type="button"
-                    label="Colse"
-                />
+                    {action &&
+                        <Button
+                            className="mr-2 w-auto bg-green-500 text-sm hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                            loading={isSubmitting}
+                            type="submit"
+                            label="Save"
+                        />
+                    }
+
+                    {closeAction && 
+                    <Button
+                        className="w-auto bg-blue-500 text-sm hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        action={closeAction}
+                        type="button"
+                        label="Colse"
+                    />}
                 </div>
             </div>
         </Form>

@@ -110,6 +110,10 @@ class DatabaseSeeder extends Seeder
                     'title' => 'View Usergroup',
                     'key' => 'view-usergroup'
                 ],
+                [
+                    'title' => 'Usergroup & Role Association',
+                    'key' => 'usergroup-role-assoc'
+                ],
             ];
 
             $permission_ids = [];

@@ -10,9 +10,7 @@ const Pagination = ({ ...props }) => {
     const router = useRouter();
 
     const prepareQueryStringByKeyValue = (keyValue = {}) => {
-        let newPathName = "";
         const params = new URLSearchParams(searchParams);
-        console.log('params',params)
         
         Object.keys(keyValue).map(i=>{
             if (searchParams) {

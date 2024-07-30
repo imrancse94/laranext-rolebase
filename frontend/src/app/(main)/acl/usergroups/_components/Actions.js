@@ -4,39 +4,41 @@ import Modal from "@/components/Modal";
 import swal from "@/libs/swal"
 import { useState } from "react"
 import Input from "@/components/Input";
-import roleSchema from "@/validation/role";
+import usergroupSchema from "@/validation/usergroup";
 import { useRouter } from "next/navigation";
 import FormComponent from "@/components/FormComponent";
-import { getRoleById,updateRoleById,deleteRoleById } from "@/app/actions/acl/roles";
+import { getUsergroupById,updateUsergroupById,deleteUsergroupById } from "@/app/actions/acl/usergroups";
 import toaster from "@/libs/toaster";
 import ActionButton from "@/components/ActionButton";
-import { FilePenLine,Trash2,Loader  } from 'lucide-react';
+import { FilePenLine,Trash2} from 'lucide-react';
 
 
 export default function Actions({ params }) {
 
     const [isModalOpen, setModalOpen] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [role,setRole] = useState({name:''})
+    const [usergroup,setUsergroup] = useState({name:''})
 
     const deleteAction = async () => {
         const s = await swal('delete', 'Are you sure to delete the role ' + params.id)
 
         if (s.isConfirmed) {
-            const response = await deleteRoleById(params.id)
+            const response = await deleteUsergroupById(params.id)
             if(response?.status_code === 100){
                 toaster('success','Deleted successfully')
+            }else  if(response?.status_code === 103){
+                toaster('error',response.message)
             }
         }
     }
 
 
-    const updateRole = async (formData) => {
+    const update = async (formData) => {
 
-        const response = await updateRoleById(params.id,formData);
+        const response = await updateUsergroupById(params.id,formData);
         
         if(response?.status_code === 100){
-            toaster('success','Role updated successfully')
+            toaster('success','Usergroup updated successfully')
             setModalOpen(false)
         }
 
@@ -44,9 +46,9 @@ export default function Actions({ params }) {
     }
     const handleEdit = async() => {
         setLoading(true);
-        const dbRole = await getRoleById(params.id)
-        if(dbRole?.status_code === 100){
-            setRole(dbRole.data)
+        const dbUsergroup = await getUsergroupById(params.id)
+        if(dbUsergroup?.status_code === 100){
+            setUsergroup(dbUsergroup.data)
             setModalOpen(true)
         }
         setLoading(false)
@@ -56,11 +58,11 @@ export default function Actions({ params }) {
         <>
         {
             isModalOpen &&
-            <Modal title="Edit Role" onCloseModal={() => setModalOpen(false)}>
+            <Modal title="Edit Usergroup" onCloseModal={() => setModalOpen(false)}>
                 <FormComponent
-                    validationSchema={roleSchema}
-                    initialValues={role}
-                    action={updateRole}
+                    validationSchema={usergroupSchema}
+                    initialValues={usergroup}
+                    action={update}
                    // getResponse={createRoleResponse}
                     closeAction={() => setModalOpen(false)}
                 >
@@ -80,14 +82,14 @@ export default function Actions({ params }) {
            <ActionButton
                 loading={loading}
                 icon={<FilePenLine size="18"/>}
-                keyName="edit-role"
+                keyName="edit-usergroup"
                 onAction={handleEdit}
                 className="underline mx-1 cursor-pointer text-indigo-600 hover:text-indigo-900"
                 label="Edit"
             />
             <ActionButton
                 icon={<Trash2 size={18} />}
-                keyName="delete-role"
+                keyName="delete-usergroup"
                 onAction={deleteAction}
                 className="underline mx-1 text-xs cursor-pointer text-red-600 hover:text-red-900"
                 label="Delete"

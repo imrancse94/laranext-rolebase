@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 
 export const getRoles = async (params = {}) => {
     const response = await api.get(`acl/roles`,params)
-
+    // revalidatePath('/acl/roles')
     return response;
 }
 

@@ -3,11 +3,11 @@ import { isPermitted } from "@/libs/permission";
 import CreateRole from "./_components/CreateRole";
 import RoleList from "./_components/RoleList";
 import SearchBar from "@/components/SearchBar";
-
+import { Suspense } from 'react'
 
 export default async function Page({ searchParams }) {
     // console.log('searchParams',searchParams)
-    await isPermitted('permission-list');
+    await isPermitted('role-list');
 
     return (
         <>
