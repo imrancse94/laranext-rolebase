@@ -1,4 +1,4 @@
-export default function MultiCheckbox({name, options, selected, label }) {
+export default function MultiCheckbox({name, error, options, selected, label }) {
 
 
     return (
@@ -6,8 +6,9 @@ export default function MultiCheckbox({name, options, selected, label }) {
             <label
                 className="block mt-4 text-sm font-bold text-gray-900 dark:text-white"
             >
-                {label}
+                {label} {error && <span className="text-red-600 text-sm font-normal">(*{error})</span>}
             </label>
+            
             <div className="w-[50%] border border-gray-200 p-4 rounded-md mt-2">
                 {
                     options.map(option => (

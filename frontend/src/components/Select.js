@@ -1,7 +1,7 @@
 import cn from "@/libs/cn"
 import { Loader } from "lucide-react";
 
-export default function Select({name, label,loading, onChange, className, options, selected, empty }) {
+export default function Select({name,error, label,loading, onChange, className, options, selected, empty }) {
 
     const newClass = cn('bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', className);
 
@@ -29,6 +29,7 @@ export default function Select({name, label,loading, onChange, className, option
                 }
 
             </select>
+            {error && <p className="text-red-600 text-sm">{error}</p>}
         </div>
     )
 }

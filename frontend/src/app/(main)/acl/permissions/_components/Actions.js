@@ -4,10 +4,10 @@ import Modal from "@/components/Modal";
 import swal from "@/libs/swal"
 import { useState } from "react"
 import Input from "@/components/Input";
-import usergroupSchema from "@/validation/usergroup";
+import permissionSchema from "@/validation/permission";
 import { useRouter } from "next/navigation";
 import FormComponent from "@/components/FormComponent";
-import { getUsergroupById,updateUsergroupById,deleteUsergroupById } from "@/app/actions/acl/usergroups";
+import { getPermissionById,updatePermissionById,deletePermissionById } from "@/app/actions/acl/permissions";
 import toaster from "@/libs/toaster";
 import ActionButton from "@/components/ActionButton";
 import { FilePenLine,Trash2} from 'lucide-react';
@@ -17,13 +17,13 @@ export default function Actions({ params }) {
 
     const [isModalOpen, setModalOpen] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [usergroup,setUsergroup] = useState({name:''})
+    const [permission,setPermission] = useState({title:'',key:''})
 
     const deleteAction = async () => {
-        const s = await swal('delete', 'Are you sure to delete the usergroup ' + params.id)
+        const s = await swal('delete', 'Are you sure to delete the permission ' + params.id)
 
         if (s.isConfirmed) {
-            const response = await deleteUsergroupById(params.id)
+            const response = await deletePermissionById(params.id)
             if(response?.status_code === 100){
                 toaster('success','Deleted successfully')
             }else  if(response?.status_code === 103){
@@ -35,20 +35,21 @@ export default function Actions({ params }) {
 
     const update = async (formData) => {
 
-        const response = await updateUsergroupById(params.id,formData);
+        const response = await updatePermissionById(params.id,formData);
         
         if(response?.status_code === 100){
-            toaster('success','Usergroup updated successfully')
+            toaster('success','Permission updated successfully')
             setModalOpen(false)
         }
 
         return response;
     }
+
     const handleEdit = async() => {
         setLoading(true);
-        const dbUsergroup = await getUsergroupById(params.id)
-        if(dbUsergroup?.status_code === 100){
-            setUsergroup(dbUsergroup.data)
+        const dbPermission = await getPermissionById(params.id)
+        if(dbPermission?.status_code === 100){
+            setPermission(dbPermission.data)
             setModalOpen(true)
         }
         setLoading(false)
@@ -58,23 +59,30 @@ export default function Actions({ params }) {
         <>
         {
             isModalOpen &&
-            <Modal title="Edit Usergroup" onCloseModal={() => setModalOpen(false)}>
+            <Modal title="Edit Permission" onCloseModal={() => setModalOpen(false)}>
                 <FormComponent
-                    validationSchema={usergroupSchema}
-                    initialValues={usergroup}
+                    validationSchema={permissionSchema}
+                    initialValues={permission}
                     action={update}
                    // getResponse={createRoleResponse}
                     closeAction={() => setModalOpen(false)}
                 >
                     <div className="text-left">
                         <Input
-                            label="Name"
+                            label="Title"
                             type="text"
-                            name="name"
-                            placeholder="Name"
+                            name="title"
+                            placeholder="Title"
                         />
                     </div>
-
+                    <div className="text-left">
+                        <Input
+                            label="Key"
+                            type="text"
+                            name="key"
+                            placeholder="Key"
+                        />
+                    </div>
                 </FormComponent>
             </Modal>
         }
@@ -82,14 +90,14 @@ export default function Actions({ params }) {
            <ActionButton
                 loading={loading}
                 icon={<FilePenLine size="18"/>}
-                keyName="edit-usergroup"
+                keyName="edit-permission"
                 onAction={handleEdit}
                 className="underline mx-1 cursor-pointer text-indigo-600 hover:text-indigo-900"
                 label="Edit"
             />
             <ActionButton
                 icon={<Trash2 size={18} />}
-                keyName="delete-usergroup"
+                keyName="delete-permission"
                 onAction={deleteAction}
                 className="underline mx-1 text-xs cursor-pointer text-red-600 hover:text-red-900"
                 label="Delete"

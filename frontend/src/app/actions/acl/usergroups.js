@@ -2,7 +2,7 @@
 
 import api from "@/app/actions/index";
 import { revalidatePath } from "next/cache";
-
+const validateRoute = '/acl/usergroups'
 export const getUsergroups = async (params = {}) => {
     const response = await api.get(`acl/usergroups`,params)
     // revalidatePath('/acl/roles')
@@ -17,26 +17,26 @@ export const getAllUsergroups = async (params = {}) => {
 
 export const createUsergroup = async (params) => {
     const response = await api.post(`acl/usergroups/create`,params)
-    revalidatePath('/acl/usergroups')
+    revalidatePath(validateRoute)
     return response;
 }
 
 
 export const getUsergroupById = async (id,params = {}) => {
     const response = await api.get(`acl/usergroups/${id}`,params);
-    revalidatePath('/acl/usergroups')
+    revalidatePath(validateRoute)
     return response;
 }
 
 export const updateUsergroupById = async (id,params) => {
     const response = await api.put(`acl/usergroups/update/${id}`,params)
-    revalidatePath('/acl/usergroups')
+    revalidatePath(validateRoute)
     return response;
 }
 
 export const deleteUsergroupById = async (id,params = {}) => {
     const response = await api.delete(`acl/usergroups/${id}`,params);
-    revalidatePath('/acl/usergroups')
+    revalidatePath(validateRoute)
     return response;
 }
 

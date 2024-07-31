@@ -13,8 +13,10 @@ class PermissionController extends Controller
 {
     public function getList(): \Illuminate\Http\JsonResponse
     {
-        $permissions = (new AclPermission())->getAll(function ($query) {
-            return $query->paginate(10);
+        $filter = request()->query();
+
+        $permissions = (new AclPermission())->getAll($filter,function ($query) {
+            return $query->orderBy('id','desc')->paginate(10);
         });
 
         $status_code = ApiStatusCode::NOT_FOUND;

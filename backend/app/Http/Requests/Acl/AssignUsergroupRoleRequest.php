@@ -13,7 +13,7 @@ class AssignUsergroupRoleRequest extends BaseRequest
     {
         return [
             'usergroup_id'=>'required|exists:acl_usergroups,id',
-            'role_ids' => ['required', 'array'],
+            'role_ids' => ['array'],
             'role_ids.*' => ['exists:acl_roles,id'],
         ];
     }

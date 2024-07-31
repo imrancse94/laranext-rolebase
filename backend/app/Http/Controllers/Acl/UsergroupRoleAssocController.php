@@ -62,6 +62,10 @@ class UsergroupRoleAssocController extends Controller
         $message = __('Failed');
         $inputData = $request->all();
 
+        if(empty($inputData['role_ids'])){
+            $inputData['role_ids'] = [];
+        }
+
         $assigned = (new AclUsergroupRole())->assignRole($inputData['usergroup_id'], $inputData['role_ids']);
 
         if($assigned){

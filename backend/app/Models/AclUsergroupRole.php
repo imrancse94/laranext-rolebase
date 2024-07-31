@@ -34,10 +34,8 @@ class AclUsergroupRole extends Model
             }
 
             self::insert($data);
-
-            return true;
         }
 
-        return false;
+        return true;
     }
 }
