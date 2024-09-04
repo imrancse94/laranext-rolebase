@@ -13,7 +13,7 @@ class RolePermissionAssocRequest extends BaseRequest
     {
         return [
             'role_id'=>'required|exists:acl_roles,id',
-            'permission_ids'=>'required|array|exists:permissions,id',
+            'permission_ids'=>'array|exists:acl_permissions,id',
         ];
     }
 }

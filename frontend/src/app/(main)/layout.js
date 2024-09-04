@@ -2,13 +2,13 @@ import Sidebar from "@/app/(main)/_components/partials/Sidebar";
 import Header from "@/app/(main)/_components/partials/Header";
 import {auth} from "@/auth";
 import {redirect} from "next/navigation";
-// import Sidebar from "@/app/(main)/_components/Sidebar";
 import {SessionProvider} from 'next-auth/react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default async function AuthLayout({children}) {
     const session = await auth();
+
     if (Object?.keys(session?.user)?.length === 0) {
         redirect("/login");
     }

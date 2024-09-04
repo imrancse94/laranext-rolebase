@@ -53,17 +53,5 @@ class LoginController extends Controller
         return sendResponse(ApiStatusCode::SUCCESS, __('Fetched successfully.'), auth()->user());
     }
 
-    public function register(RegisterRequest $request)
-    {
-        $inputData = $request->all();
-        dd($inputData);
-        $user = (new User())->createUser($inputData);
-
-        if (!empty($user)) {
-            return sendResponse(ApiStatusCode::SUCCESS, __('Registered successfully.'), $user);
-        }
-
-        return sendResponse(ApiStatusCode::FAILED, __('User creation failed'), []);
-
-    }
+    
 }

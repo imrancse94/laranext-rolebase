@@ -1,16 +1,15 @@
-import { getRoles } from "@/app/actions/acl/roles";
+import { getAllUsers } from "@/app/actions/acl/user";
 import Pagination from "@/components/Pagination";
 import Table from "@/app/(main)/_components/Table";
 import Actions from "./Actions";
-import api from "@/app/actions";
 
-export default async function RoleList({searchParams}) {
+export default async function UserList({searchParams}) {
 
-    const headings = ['Id', 'Name', 'CreatedAt', 'UpdatedAt', 'Actions'];
+    const headings = ['Id', 'Name','Email', 'CreatedAt', 'UpdatedAt', 'Actions'];
 
-    const { data } = await getRoles(searchParams);
+    const { data } = await getAllUsers(searchParams);
 
-    const roles = data;
+    const users = data;
 
     return (
         <>
@@ -18,30 +17,35 @@ export default async function RoleList({searchParams}) {
                 <div className="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
                     <div className="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
                         <Table headings={headings}>
-                            {roles?.data &&
-                                roles?.data?.map(role =>
-                                    <tr key={role.id}>
+                            {users?.data &&
+                                users?.data?.map(user =>
+                                    <tr key={user.id}>
                                         <td className="px-2 py-4 whitespace-no-wrap border-b border-gray-200 text-center">
-                                            <div className="text-sm leading-5 text-gray-900">{role.id}</div>
+                                            <div className="text-sm leading-5 text-gray-900">{user.id}</div>
                                         </td>
 
                                         <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center">
-                                            <div className="text-sm leading-5 text-gray-900">{role.name}</div>
+                                            <div className="text-sm leading-5 text-gray-900">{user.name}</div>
                                             {/* <div className="text-sm leading-5 text-gray-500">Web dev</div> */}
                                         </td>
 
                                         <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center">
-                                            <div className="text-sm leading-5 text-gray-900">{role.created_at}</div>
+                                            <div className="text-sm leading-5 text-gray-900">{user.email}</div>
+                                            {/* <div className="text-sm leading-5 text-gray-500">Web dev</div> */}
+                                        </td>
+
+                                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center">
+                                            <div className="text-sm leading-5 text-gray-900">{user.created_at}</div>
                                         </td>
 
                                         <td
                                             className="text-center px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                            {role.updated_at}
+                                            {user.updated_at}
                                         </td>
 
                                         <td
                                             className="text-center px-6 py-4 text-sm font-medium leading-5 text-center whitespace-no-wrap border-b border-gray-200">
-                                            <Actions params={role} />
+                                            <Actions params={user} />
                                         </td>
                                     </tr>
                                 )}
@@ -51,13 +55,13 @@ export default async function RoleList({searchParams}) {
             </div>
             <div className="flex justify-end">
                 <Pagination
-                    first_page_url={roles?.first_page_url}
-                    next_page_url={roles?.next_page_url}
-                    prev_page_url={roles?.prev_page_url}
-                    from={roles?.from}
-                    to={roles?.to}
-                    links={roles?.links}
-                    current={roles?.current_page}
+                    first_page_url={users?.first_page_url}
+                    next_page_url={users?.next_page_url}
+                    prev_page_url={users?.prev_page_url}
+                    from={users?.from}
+                    to={users?.to}
+                    links={users?.links}
+                    current={users?.current_page}
                 />
             </div>
         </>

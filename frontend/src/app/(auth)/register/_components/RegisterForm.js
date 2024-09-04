@@ -42,6 +42,7 @@ export default function RegisterForm() {
 
             if(response?.status_code === 100){
                 setMessage(response.message);
+                reset();
             }else{
                 if(response?.errors?.email){
                     setError(response?.errors?.email)

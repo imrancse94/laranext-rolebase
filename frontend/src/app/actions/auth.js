@@ -40,3 +40,18 @@ export async function register(params) {
         throw error;
     }
 }
+
+export async function updatePermission(params) {
+    try {
+
+        const response = await signIn("credentials", {
+            ...params,
+            redirect: false
+        })
+
+        return response;
+
+    } catch (error) {
+        throw error;
+    }
+}

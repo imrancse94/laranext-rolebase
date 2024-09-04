@@ -1,11 +1,11 @@
 import api from "../../actions";
-import { auth } from "@/auth"
+import { auth,update } from "@/auth"
 import axios from "axios";
-import {getUser} from "@/app/actions/user";
+import {getUser} from "@/app/actions/acl/user";
 
-export default async function Dashboard() {
+export default async function Dashboard(req,res) {
     const session = await auth()
-
+    console.log('req',req)
     return (
         <>
             <h3 className="text-3xl font-medium text-gray-700">Dashboard</h3>

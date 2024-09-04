@@ -6,6 +6,7 @@ import Api from "./app/actions";
 import {authConfig} from "./auth.config";
 import api from "./app/actions";
 
+
 const refreshAccessToken = async (token) => {
 
     try {
@@ -36,6 +37,7 @@ export const {
     auth,
     signIn,
     signOut,
+    update
 } = NextAuth({
     ...authConfig,
     providers: [
@@ -45,36 +47,43 @@ export const {
                 email: {},
                 password: {},
             },
+
             authorize: async (credentials) => {
-                
+
                 if (credentials == null) return null;
 
+                if(credentials?.type === 'permission'){
+                    return credentials;
+                }
+
                 try {
-                    
+
                     const response = await api.post('login', {
                         email: credentials.email,
                         password: credentials.password
                     })
-                    
-                    if (response.status_code != 100) {
+
+                    if (response.status_code !== 100) {
                         throw new Error(response.message);
                     }
-                    
+
                     return response;
                 } catch (error) {
                     throw new Error(error.message);
                 }
 
             },
-        })
+        }
+    ),
+
     ],
     callbacks: {
-
-        async jwt({token, user, account}) {
+        async jwt({token, user, account, trigger, session}) {
 
             if (user && account) {
 
                 token.permission = user?.data?.permission;
+                token.permission_version = user?.data?.user?.permission_version;
                 token.user = user?.data?.user;
                 token.access_token = user?.data?.access_token;
                 token.refresh_token = user?.data?.refresh_token;
@@ -82,6 +91,11 @@ export const {
             }
 
             if (Date.now() < token?.accessTokenExpires) {
+                return token;
+            }
+
+            if (trigger === "update" && session) {
+                token = {...token, ...session}
                 return token;
             }
 
@@ -97,6 +111,7 @@ export const {
 
             session.permission = token?.permission;
             session.user = token?.user;
+            session.permission_version = token?.user?.permission_version;
             session.access_token = token?.access_token;
             session.refresh_token = token?.refresh_token;
             session.accessTokenExpires = token?.accessTokenExpires;

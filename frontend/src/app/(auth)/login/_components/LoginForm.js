@@ -10,7 +10,7 @@ import loginSchema from "@/validation/login";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { login } from "@/app/actions/auth";
 import Alert from "@/components/Alert";
-import { useRouter } from "next/navigation";
+import {redirect, useRouter} from "next/navigation";
 
 export default function LoginForm() {
     const router = useRouter();
@@ -38,6 +38,7 @@ export default function LoginForm() {
             const response = await login(params);
             if(response){
                 router.push('/dashboard');
+                //
             }
         } catch (error) {
             setError(error.message)

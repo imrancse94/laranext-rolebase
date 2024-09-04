@@ -11,4 +11,9 @@ class AclUserUsergroup extends Model
     use HasFactory,ModelTrait;
 
     protected $fillable = ['user_id','acl_usergroup_id'];
+
+    public function add($inputData)
+    {
+        return self::insert($inputData);
+    }
 }

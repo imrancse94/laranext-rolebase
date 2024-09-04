@@ -30,6 +30,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
+        'email_verified_at',
         'password',
         'remember_token',
     ];
@@ -51,6 +52,58 @@ class User extends Authenticatable
     public function createUser($inputData)
     {
         $inputData['password'] = Hash::make($inputData['password']);
-        return self::create($inputData);
+        $user = self::create($inputData);
+
+        (new AclUserUsergroup())->add([
+            [
+                'user_id' => $user->id,
+                'acl_usergroup_id' => $inputData['usergroup_id'],
+            ]
+        ]);
+
+        return $user;
+    }
+
+    public function getAll($filter,$callback)
+    {
+        $query = self::query();
+
+        if(!empty($filter['search'])){
+            $query->where(function($q) use ($filter){
+                $q->where('name','LIKE','%'.$filter['search'].'%')
+                  ->orWhere('email','LIKE','%'.$filter['search'].'%');
+            });
+        }
+
+        return $callback($query);
+    }
+
+    public function updatebyId($id, $inputData)
+    {
+        $userData['name'] = $inputData['name'];
+        $userData['email'] = $inputData['email'];
+
+        if(!empty($inputData['password'])){
+            $userData['password'] = Hash::make($inputData['password']);
+        }
+
+        $user = self::where('id', $id)->update($userData);
+
+        if(!empty($user)) {
+            AclUserUsergroup::where('user_id', $id)->delete();
+
+            (new AclUserUsergroup())->add([
+                [
+                    'user_id' => $id,
+                    'acl_usergroup_id' => $inputData['usergroup_id'],
+                ]
+            ]);
+        }
+        return $user;
+    }
+
+    public function getById($id)
+    {
+        return self::find($id);
     }
 }

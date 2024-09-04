@@ -46,7 +46,6 @@ export default function Sidebar() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                             d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
                     </svg>
-
                     <span className="mx-3">{'Dashboard'}</span>
                 </RouteLink>
                 <RouteLink keyName="role-list" className="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" to="/acl/roles">
@@ -89,6 +88,28 @@ export default function Sidebar() {
                             d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
                     </svg>
                     <span className="mx-3">{'Usergroup & Role Association'}</span>
+                </RouteLink>
+
+                <RouteLink keyName="role-permission-assoc" className="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" to="/acl/role-permissions">
+                    <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                            d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                            d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+                    </svg>
+                    <span className="mx-3">{'Role & Permission Association'}</span>
+                </RouteLink>
+
+                <RouteLink keyName="user-list" className="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" to="/acl/users">
+                    <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                              d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                              d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+                    </svg>
+                    <span className="mx-3">{'User Management'}</span>
                 </RouteLink>
 
 

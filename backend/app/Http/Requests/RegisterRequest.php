@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
+
 class RegisterRequest extends BaseRequest
 {
     /**
@@ -13,8 +15,9 @@ class RegisterRequest extends BaseRequest
     {
         return [
             'name' => 'required|string',
-            'email' => 'required|string|email|unique:users,email',
+            'email' => ['required','email',Rule::unique('users')->ignore($this->id)],
             'password' => 'required|string|confirmed',
+            'usergroup_id'=>'required|integer|exists:acl_usergroups,id'
         ];
     }
 }

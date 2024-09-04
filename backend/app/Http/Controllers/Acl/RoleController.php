@@ -31,6 +31,32 @@ class RoleController extends Controller
         return sendResponse($status_code, $message, $data);
     }
 
+    public function getAllList(): \Illuminate\Http\JsonResponse
+    {
+        $filter = request()->query();
+
+        $roles = (new AclRole())->getAll($filter,function ($query) {
+            return $query->pluck('name','id');
+        });
+
+        $status_code = ApiStatusCode::NOT_FOUND;
+        $data = [];
+        $message = __('Not found');
+
+        if (count($roles) > 0) {
+            $status_code = ApiStatusCode::SUCCESS;
+            $jsonArray = [];
+            foreach ($roles as $id => $name) {
+                $jsonArray[] = ['id' => $id, 'name' => $name];
+            }
+            $data = $jsonArray;
+            $message = __('Success');
+        }
+
+        return sendResponse($status_code, $message, $data);
+    }
+
+
 
     public function create(RoleRequest $request): \Illuminate\Http\JsonResponse
     {

@@ -6,6 +6,8 @@ use App\Http\Controllers\Acl\RolePermissionAssocController;
 use App\Http\Controllers\Acl\UsergroupController;
 use App\Http\Controllers\Acl\UsergroupRoleAssocController;
 use App\Http\Controllers\V1\LoginController;
+use App\Http\Controllers\V1\UserController;
+use App\Http\Middleware\RolePermission;
 use Illuminate\Support\Facades\Route;
 
 //Route::get('/user', function (Request $request) {
@@ -17,70 +19,83 @@ Route::prefix('v1')->group(function () {
     Route::post('login', [LoginController::class, 'login'])->name('api.login');
     Route::post('refresh-token', [LoginController::class, 'refreshToken'])->name('api.refresh.token');
     Route::post('register', [LoginController::class, 'register'])->name('api.register');
-    Route::middleware('auth')->group(function () {
+    Route::middleware(['auth',RolePermission::class])->group(function () {
         Route::get('auth/user', [LoginController::class, 'getAuthenticatedUser'])->name('api.auth.user');
+
+        // ACL
+        Route::prefix('acl')->group(function () {
+
+            // Role
+            Route::controller(RoleController::class)
+                ->prefix('roles')
+                ->name('roles.')
+                ->group(function () {
+                    Route::get('', 'getList')->name('index');
+                    Route::get('all-list', 'getAllList')->name('list');
+                    Route::post('create', 'create')->name('create');
+                    Route::put('update/{id}', 'update')->name('update');
+                    Route::delete('{id}', 'delete')->name('delete');
+                    Route::get('{id}', 'show')->name('get');
+                });
+
+            // Usergroup
+            Route::controller(UsergroupController::class)
+                ->prefix('usergroups')
+                ->name('usergroups.')
+                ->group(function () {
+                    Route::get('', 'getList')->name('index');
+                    Route::get('all-list', 'getAllList')->name('all.list');
+                    Route::post('create', 'create')->name('create');
+                    Route::put('update/{id}', 'update')->name('update');
+                    Route::delete('{id}', 'delete')->name('delete');
+                    Route::get('{id}', 'show')->name('get');
+                });
+
+            // Permission
+            Route::controller(PermissionController::class)
+                ->prefix('permissions')
+                ->name('permissions.')
+                ->group(function () {
+                    Route::get('', 'getList')->name('list');
+                    Route::post('create', 'create')->name('create');
+                    Route::put('update/{id}', 'update')->name('update');
+                    Route::delete('{id}', 'delete')->name('delete');
+                    Route::get('{id}', 'show')->name('get');
+                });
+
+            // Usergroup & Role Association
+            Route::controller(UsergroupRoleAssocController::class)
+                ->prefix('usergroup-role-assoc')
+                ->name('usergroup.role.assoc.')
+                ->group(function () {
+                    Route::get('', 'index')->name('index');
+                    Route::get('{usergroup_id}', 'getInfoByUserGroupId')->name('get.info');
+                    Route::post('assign/role', 'assignRole')->name('assign.role');
+                });
+
+            // Usergroup & Role Association
+            Route::controller(RolePermissionAssocController::class)
+                ->prefix('role-permission')
+                ->name('role.permission.')
+                ->group(function () {
+                    Route::get('', 'index')->name('index');
+                    Route::get('{role_id}', 'getInfoByRoleId')->name('get.info');
+                    Route::post('assign/permission', 'assignPermission')->name('assign.permission');
+                });
+
+
+            Route::controller(UserController::class)
+                ->prefix('users')
+                ->name('users.')
+                ->group(function () {
+                    Route::get('{id}', 'getUserById')->name('get.info');
+                    Route::get('', 'getAllUsers')->name('list');
+                    Route::post('create', 'create')->name('create');
+                    Route::put('update/{id}', 'update')->name('update');
+                });
+        });
+        // ACL
     });
 
-    // ACL
 
-    Route::prefix('acl')->group(function () {
-
-        // Role
-        Route::controller(RoleController::class)
-            ->prefix('roles')
-            ->name('roles.')
-            ->group(function () {
-                Route::get('', 'getList')->name('list');
-                Route::post('create', 'create')->name('create');
-                Route::put('update/{id}', 'update')->name('update');
-                Route::delete('{id}', 'delete')->name('delete');
-                Route::get('{id}', 'show')->name('get');
-            });
-
-        // Usergroup
-        Route::controller(UsergroupController::class)
-            ->prefix('usergroups')
-            ->name('usergroups.')
-            ->group(function () {
-                Route::get('', 'getList')->name('index');
-                Route::get('all-list', 'getAllList')->name('all.list');
-                Route::post('create', 'create')->name('create');
-                Route::put('update/{id}', 'update')->name('update');
-                Route::delete('{id}', 'delete')->name('delete');
-                Route::get('{id}', 'show')->name('get');
-            });
-
-        // Permission
-        Route::controller(PermissionController::class)
-            ->prefix('permissions')
-            ->name('permissions.')
-            ->group(function () {
-                Route::get('', 'getList')->name('list');
-                Route::post('create', 'create')->name('create');
-                Route::put('update/{id}', 'update')->name('update');
-                Route::delete('{id}', 'delete')->name('delete');
-                Route::get('{id}', 'show')->name('get');
-            });
-
-        // Usergroup & Role Association
-        Route::controller(UsergroupRoleAssocController::class)
-            ->prefix('usergroup-role-assoc')
-            ->name('usergroup.role.assoc.')
-            ->group(function () {
-                Route::get('', 'index')->name('index');
-                Route::get('{usergroup_id}', 'getInfoByUserGroupId')->name('get.info');
-                Route::post('assign/role', 'assignRole')->name('assign.role');
-            });
-
-        // Usergroup & Role Association
-        Route::controller(RolePermissionAssocController::class)
-            ->prefix('role-permission')
-            ->name('role.permission.')
-            ->group(function () {
-                Route::get('', 'index')->name('index');
-                Route::get('{role_id}', 'getInfoByRoleId')->name('get.info');
-                Route::post('assign/role', 'assignRole')->name('assign.role');
-            });
-    });
-    // ACL
 });
